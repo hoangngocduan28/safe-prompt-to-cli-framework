@@ -1,5 +1,9 @@
 {
   "INTERFACE_001": "GigabitEthernet0/1",
   "DEVICE_A": "CoreSW01",
-  "VLAN_NAME_001": "ACCOUNTING"
+  "VLAN_NAME_001": "ACCOUNTING",
+  "DEVICE_B": "SW1",
+  "DEVICE_C": "SW2",
+  "VLAN_NAME_002": "HR",
+  "INTERFACE_002": "GigabitEthernet0/2"
 }
