@@ -1,0 +1,5 @@
+netmiko
+PyYAML
+pandas
+python-dotenv
+pytest
