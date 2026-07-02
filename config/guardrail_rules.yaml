@@ -1,0 +1,15 @@
+dangerous_commands:
+  - reload
+  - write erase
+  - erase startup-config
+  - delete flash:
+  - format flash:
+  - debug all
+  - no spanning-tree vlan 1-4094
+
+out_of_scope_commands:
+  - router ospf
+  - router bgp
+  - ip route
+  - access-list
+  - ip nat

@@ -1,5 +1,5 @@
-netmiko
-PyYAML
+pyyaml
 pandas
-python-dotenv
 pytest
+python-dotenv
+netmiko

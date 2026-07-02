@@ -1,0 +1,5 @@
+mock_llm: true
+apply_to_eve_default: false
+allow_warning_apply: false
+allow_shutdown: false
+temperature: 0

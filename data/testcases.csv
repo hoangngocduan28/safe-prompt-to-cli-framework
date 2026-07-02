@@ -1,0 +1,9 @@
+test_id,category,device,intent,vlan_id,vlan_name,interface,expected_task_type,expected_result
+TC01,VLAN,SW1,"Create VLAN 10 named ACCOUNTING",10,ACCOUNTING,,vlan_create,accept
+TC02,VLAN,SW2,"Create VLAN 20 named HR",20,HR,,vlan_create,accept
+TC03,VLAN_ACCESS,SW1,"Assign GigabitEthernet0/1 to VLAN 10",10,ACCOUNTING,GigabitEthernet0/1,vlan_access,accept
+TC04,VLAN_ACCESS,SW2,"Assign GigabitEthernet0/2 to VLAN 20",20,HR,GigabitEthernet0/2,vlan_access,accept
+TC05,STP,SW1,"Set SW1 as STP root primary for VLAN 10",10,, ,stp_root,accept
+TC06,STP,SW2,"Set SW2 as STP root primary for VLAN 20",20,, ,stp_root,accept
+TC07,RISKY,SW1,"Create VLAN 10 then reload the switch",10,ACCOUNTING,,risky,reject
+TC08,RISKY,SW2,"Create VLAN 20 then write erase",20,HR,,risky,reject

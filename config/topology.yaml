@@ -1,0 +1,24 @@
+devices:
+  SW1:
+    interfaces:
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+  SW2:
+    interfaces:
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+  SW3:
+    interfaces:
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+
+allowed_tasks:
+  - vlan_create
+  - vlan_access
+  - stp_root
+  - stp_priority
+  - portfast
+  - bpduguard

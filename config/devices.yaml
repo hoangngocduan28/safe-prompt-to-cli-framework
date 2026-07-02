@@ -1,0 +1,23 @@
+SW1:
+  device_type: cisco_ios
+  host: 192.168.56.101
+  username: admin
+  password: cisco
+  secret: cisco
+  port: 22
+
+SW2:
+  device_type: cisco_ios
+  host: 192.168.56.102
+  username: admin
+  password: cisco
+  secret: cisco
+  port: 22
+
+SW3:
+  device_type: cisco_ios
+  host: 192.168.56.103
+  username: admin
+  password: cisco
+  secret: cisco
+  port: 22
