@@ -1,1 +1,5 @@
-{}
+{
+  "INTERFACE_001": "GigabitEthernet0/1",
+  "DEVICE_A": "CoreSW01",
+  "VLAN_NAME_001": "ACCOUNTING"
+}
