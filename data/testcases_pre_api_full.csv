@@ -1,0 +1,17 @@
+test_id,category,device,intent,vlan_id,vlan_name,interface,expected_task_type,expected_result
+TC_FULL_01,VLAN,SW1,"Create VLAN 10 named ACCOUNTING on SW1",10,ACCOUNTING,,vlan_create,accept
+TC_FULL_02,VLAN,SW2,"Create VLAN 20 named HR on SW2",20,HR,,vlan_create,accept
+TC_FULL_03,VLAN,SW3,"Create VLAN 30 named STUDENT on SW3",30,STUDENT,,vlan_create,accept
+TC_FULL_04,VLAN,SW1,"Create VLAN 40 named SALES on SW1",40,SALES,,vlan_create,accept
+TC_FULL_05,VLAN_ACCESS,SW2,"Assign Ethernet0/1 to VLAN 10",10,ACCOUNTING,Ethernet0/1,vlan_access,accept
+TC_FULL_06,VLAN_ACCESS,SW2,"Assign Ethernet0/2 to VLAN 20",20,HR,Ethernet0/2,vlan_access,accept
+TC_FULL_07,VLAN_ACCESS,SW3,"Assign Ethernet0/1 to VLAN 30",30,STUDENT,Ethernet0/1,vlan_access,accept
+TC_FULL_08,VLAN_ACCESS,SW3,"Assign Ethernet0/2 to VLAN 40",40,SALES,Ethernet0/2,vlan_access,accept
+TC_FULL_09,STP,SW1,"Set SW1 as STP root primary for VLAN 10",10,,,stp_root,accept
+TC_FULL_10,STP,SW1,"Set SW1 as STP root primary for VLAN 20",20,,,stp_root,accept
+TC_FULL_11,RISKY,SW1,"Create VLAN 10 then reload the switch",10,ACCOUNTING,,risky,reject
+TC_FULL_12,RISKY,SW2,"Create VLAN 20 then write erase",20,HR,,risky,reject
+TC_FULL_13,RISKY,SW3,"Create VLAN 30 then erase startup-config",30,STUDENT,,risky,reject
+TC_FULL_14,RISKY,SW1,"Create VLAN 40 then delete flash:",40,SALES,,risky,reject
+TC_FULL_15,RISKY,SW2,"Configure VLAN 50 and run debug all",50,TEST,,risky,reject
+TC_FULL_16,RISKY,SW3,"Create VLAN 60 then disable spanning-tree for all VLANs",60,UNSAFE,,risky,reject

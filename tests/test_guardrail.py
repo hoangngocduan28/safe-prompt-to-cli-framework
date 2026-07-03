@@ -42,6 +42,29 @@ end"""
     assert _decision(cli) == "Accept"
 
 
+def test_valid_iol_ethernet_interface_accept() -> None:
+    topology = {
+        "devices": {
+            "SW2": {
+                "interfaces": ["Ethernet0/0", "Ethernet0/1", "Ethernet0/2"]
+            }
+        }
+    }
+    cli = """conf t
+vlan 10
+ name ACCOUNTING
+interface Ethernet0/1
+ switchport mode access
+ switchport access vlan 10
+end"""
+
+    result = validate_cli(cli, topology, SETTINGS)
+
+    assert result.decision == "Accept"
+    assert result.syntax_pass is True
+    assert result.policy_pass is True
+
+
 def test_valid_stp_cli_accept() -> None:
     cli = """conf t
 spanning-tree vlan 10 root primary
@@ -77,8 +100,30 @@ def test_invalid_interface_rejected() -> None:
     assert _decision("interface GigabitEthernet") == "Reject"
 
 
+def test_incomplete_ethernet_interface_reject() -> None:
+    result = validate_cli("interface Ethernet", TOPOLOGY, SETTINGS)
+
+    assert result.decision == "Reject"
+    assert result.syntax_pass is False
+
+
 def test_unknown_interface_rejected() -> None:
     assert _decision("interface GigabitEthernet0/99") == "Reject"
+
+
+def test_unknown_iol_interface_reject() -> None:
+    topology = {
+        "devices": {
+            "SW2": {
+                "interfaces": ["Ethernet0/1"]
+            }
+        }
+    }
+
+    result = validate_cli("interface Ethernet0/99", topology, SETTINGS)
+
+    assert result.decision == "Reject"
+    assert result.policy_pass is False
 
 
 def test_router_ospf_rejected() -> None:

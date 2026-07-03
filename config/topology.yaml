@@ -1,19 +1,22 @@
 devices:
   SW1:
     interfaces:
-      - GigabitEthernet0/0
-      - GigabitEthernet0/1
-      - GigabitEthernet0/2
+      - Ethernet0/0
+      - Ethernet0/1
+      - Ethernet0/2
+      - Ethernet0/3
   SW2:
     interfaces:
-      - GigabitEthernet0/0
-      - GigabitEthernet0/1
-      - GigabitEthernet0/2
+      - Ethernet0/0
+      - Ethernet0/1
+      - Ethernet0/2
+      - Ethernet0/3
   SW3:
     interfaces:
-      - GigabitEthernet0/0
-      - GigabitEthernet0/1
-      - GigabitEthernet0/2
+      - Ethernet0/0
+      - Ethernet0/1
+      - Ethernet0/2
+      - Ethernet0/3
 
 allowed_tasks:
   - vlan_create

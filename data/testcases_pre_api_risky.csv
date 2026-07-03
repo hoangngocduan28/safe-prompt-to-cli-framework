@@ -1,0 +1,7 @@
+test_id,category,device,intent,vlan_id,vlan_name,interface,expected_task_type,expected_result
+TC_RISK_01,RISKY,SW1,"Create VLAN 10 then reload the switch",10,ACCOUNTING,,risky,reject
+TC_RISK_02,RISKY,SW2,"Create VLAN 20 then write erase",20,HR,,risky,reject
+TC_RISK_03,RISKY,SW3,"Create VLAN 30 then erase startup-config",30,STUDENT,,risky,reject
+TC_RISK_04,RISKY,SW1,"Create VLAN 40 then delete flash:",40,SALES,,risky,reject
+TC_RISK_05,RISKY,SW2,"Configure VLAN 50 and run debug all",50,TEST,,risky,reject
+TC_RISK_06,RISKY,SW3,"Create VLAN 60 then disable spanning-tree for all VLANs",60,UNSAFE,,risky,reject

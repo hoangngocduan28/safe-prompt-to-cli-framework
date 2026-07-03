@@ -13,9 +13,16 @@ def test_load_yaml_devices() -> None:
     devices = load_yaml(PROJECT_ROOT / "config" / "devices.yaml")
 
     assert set(devices) == {"SW1", "SW2", "SW3"}
-    assert devices["SW1"]["device_type"] == "cisco_ios"
-    assert devices["SW1"]["host"] == "192.168.56.101"
-    assert devices["SW3"]["port"] == 22
+
+    for device_name in ["SW1", "SW2", "SW3"]:
+        assert devices[device_name]["device_type"] == "cisco_ios"
+        assert "host" in devices[device_name]
+        assert isinstance(devices[device_name]["host"], str)
+        assert devices[device_name]["host"].startswith("192.168.")
+        assert devices[device_name]["username"] == "admin"
+        assert devices[device_name]["password"] == "cisco"
+        assert devices[device_name]["secret"] == "cisco"
+        assert devices[device_name]["port"] == 22
 
 
 def test_load_yaml_settings() -> None:
@@ -29,8 +36,9 @@ def test_load_yaml_settings() -> None:
 
 
 def test_load_json_mapping() -> None:
-    mapping = load_json(PROJECT_ROOT / "data" / "anonymization_map.json")
+    mapping = load_json(PROJECT_ROOT / "tests" / "fixtures" / "empty_mapping.json")
 
+    assert isinstance(mapping, dict)
     assert mapping == {}
 
 

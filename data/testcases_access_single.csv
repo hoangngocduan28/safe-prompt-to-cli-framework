@@ -1,0 +1,2 @@
+test_id,category,device,intent,vlan_id,vlan_name,interface,expected_task_type,expected_result
+TC03,VLAN_ACCESS,SW2,"Assign Ethernet0/1 to VLAN 10",10,ACCOUNTING,Ethernet0/1,vlan_access,accept

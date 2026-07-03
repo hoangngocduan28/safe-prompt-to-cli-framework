@@ -33,7 +33,10 @@ OUT_OF_SCOPE_PATTERNS = (
     r"^interface\s+tunnel\b",
 )
 
-INTERFACE_PATTERN = re.compile(r"^interface\s+(GigabitEthernet\d+(?:/\d+)+)$", re.IGNORECASE)
+INTERFACE_PATTERN = re.compile(
+    r"^interface\s+((?:GigabitEthernet|Gi|FastEthernet|Fa|Ethernet|Et)\d+(?:/\d+)+)$",
+    re.IGNORECASE,
+)
 VLAN_LINE_PATTERN = re.compile(r"^vlan\s+(\d+)$", re.IGNORECASE)
 SWITCHPORT_ACCESS_PATTERN = re.compile(
     r"^switchport\s+access\s+vlan\s+(\d+)$",
