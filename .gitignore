@@ -6,3 +6,5 @@ __pycache__/
 outputs/*.csv
 outputs/*.jsonl
 outputs/raw_llm_outputs/
+.env
+*.env

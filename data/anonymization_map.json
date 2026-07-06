@@ -1,1 +1,8 @@
-{}
+{
+  "DEVICE_A": "SW1",
+  "VLAN_NAME_001": "ACCOUNTING",
+  "DEVICE_B": "SW2",
+  "VLAN_NAME_002": "HR",
+  "DEVICE_C": "SW3",
+  "VLAN_NAME_003": "STUDENT"
+}

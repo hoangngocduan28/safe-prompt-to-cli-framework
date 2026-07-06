@@ -1,6 +1,17 @@
+import os
 import re
 
+from openai import OpenAI
 from src.prompt_builder import TestCase
+
+
+OPENAI_SAFETY_INSTRUCTION = """You are a Cisco IOS CLI generation engine for a controlled EVE-NG lab.
+Return only Cisco IOS CLI commands.
+Do not include explanations.
+Do not include Markdown.
+Do not include comments.
+Do not generate destructive commands such as reload, write erase, erase startup-config, delete flash:, format flash:, debug all.
+Only generate VLAN and STP switching configuration."""
 
 
 def _prompt_value(prompt: str, label: str) -> str | None:
@@ -35,10 +46,71 @@ def _risky_command(intent: str) -> str:
     return "debug all"
 
 
-def generate_cli(prompt: str, test_case: TestCase, mode: str = "mock") -> str:
-    """Generate Cisco-style CLI using a deterministic mock LLM."""
+def _strip_markdown_fences(text: str) -> str:
+    """Remove Markdown code fence wrappers from model output."""
+    lines = text.strip().splitlines()
+    if not lines:
+        return ""
+
+    if lines[0].strip().lower().startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip().startswith("```"):
+        lines = lines[:-1]
+
+    return "\n".join(lines).strip()
+
+
+def _extract_response_text(response: object) -> str:
+    """Return text from an OpenAI Responses API object."""
+    output_text = getattr(response, "output_text", None)
+    if output_text is not None:
+        return str(output_text)
+
+    output_parts: list[str] = []
+    for item in getattr(response, "output", []) or []:
+        for content in getattr(item, "content", []) or []:
+            text = getattr(content, "text", None)
+            if text is not None:
+                output_parts.append(str(text))
+
+    return "\n".join(output_parts)
+
+
+def generate_cli_openai(prompt: str, settings: dict | None = None) -> str:
+    """Generate Cisco IOS CLI with the OpenAI Responses API."""
+    api_key = os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "OPENAI_API_KEY environment variable is required for OpenAI LLM provider."
+        )
+
+    settings = settings or {}
+    model = settings.get("openai_model", "gpt-5.5")
+    temperature = settings.get("openai_temperature", 0)
+    timeout = settings.get("openai_timeout_seconds", 30)
+    safe_prompt = f"{OPENAI_SAFETY_INSTRUCTION}\n\n{prompt}"
+
+    client = OpenAI(api_key=api_key)
+    response = client.responses.create(
+        model=model,
+        input=safe_prompt,
+        temperature=temperature,
+        timeout=timeout,
+    )
+    return _strip_markdown_fences(_extract_response_text(response))
+
+
+def generate_cli(
+    prompt: str,
+    test_case: TestCase,
+    mode: str = "mock",
+    settings: dict | None = None,
+) -> str:
+    """Generate Cisco-style CLI using the selected LLM provider."""
+    if mode == "openai":
+        return generate_cli_openai(prompt, settings)
     if mode != "mock":
-        raise NotImplementedError("Only mock LLM mode is implemented.")
+        raise ValueError(f"Unsupported LLM provider: {mode}")
 
     vlan_id = _value_from_prompt_or_testcase(prompt, "VLAN ID", test_case.vlan_id)
     vlan_name = _value_from_prompt_or_testcase(prompt, "VLAN Name", test_case.vlan_name)

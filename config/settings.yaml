@@ -3,3 +3,7 @@ apply_to_eve_default: false
 allow_warning_apply: false
 allow_shutdown: false
 temperature: 0
+llm_provider: mock
+openai_model: gpt-5.5
+openai_temperature: 0
+openai_timeout_seconds: 30
